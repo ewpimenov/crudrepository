@@ -19,13 +19,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
     public List<Role> getAllRolesByName() {
         return roleRepository.findAll();
     }
 
     @Override
-    @Transactional
     public List<Role> getRolesByName(String[] role) {
         return roleRepository.findAll(role);
     }

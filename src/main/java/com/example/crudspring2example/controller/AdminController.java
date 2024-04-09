@@ -13,13 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
-@Transactional
 public class AdminController {
-
     private final RoleService roleService;
-
     private final PasswordEncoder passwordEncoder;
-
     private final UserService userService;
 
     public AdminController(RoleService roleService, UserService userService, PasswordEncoder passwordEncoder) {
@@ -41,7 +37,6 @@ public class AdminController {
     @PostMapping("/addUser")
     public String create(@ModelAttribute("user") User user) {
         user.setRoles(roleService.getAllRolesByName());
-
         userService.addUser(user);
         return "redirect:/";
     }

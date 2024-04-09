@@ -17,11 +17,8 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
-
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     @Autowired
     public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -29,7 +26,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -41,13 +37,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public void updateUser(User user) {
         User userFromDB = userRepository.getOne(user.getId());
         String oldPassword = userFromDB.getPassword();
@@ -58,13 +52,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public User getUser(int id) {
         return userRepository.getOne(id);
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.getUserByUsername(username);
         if (user == null) {
